@@ -1,0 +1,1 @@
+{"mappings":"AAAA;;;;AAIA","sources":["index.css"],"sourcesContent":[".arjun{\r\n    background: yellow;\r\n}\r\n\r\n.arjun:hover{\r\n    background: red;\r\n}"],"names":[],"version":3,"file":"index.9e4c6fd2.css.map","sourceRoot":"/__parcel_source_root/"}
