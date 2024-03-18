@@ -8,7 +8,7 @@ const useRestaurantMenu = (resId) => {
         );
         const response = await res.json();
         setResponse(response)
-        console.log(response)
+        // console.log(response)
       };
       useEffect(() => {
         handleFetch();

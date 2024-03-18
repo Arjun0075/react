@@ -5,27 +5,26 @@ import { Link } from "react-router-dom";
 import useOnline from "../../utils/useOnline";
 
 const Body = () => {
-
   const [restaurantList, setRestaurantList] = useState([]);
-  const [inputText , setInputText] = useState("")
-  const [filteredList , setFilteredList] = useState([])
-  const isOnline = useOnline()
-
-
+  const [inputText, setInputText] = useState("");
+  const [filteredList, setFilteredList] = useState([]);
+  const isOnline = useOnline();
+  // console.log(restaurantList);
+  // console.log(filteredList);
 
   const fetchData = async () => {
     const response = await fetch(
-      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=18.537122&lng=73.6771662&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=18.5781729&lng=73.6835432&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
     );
-    const data = await response.json()
-    //  console.log(data.data.cards[2].card.card.gridElements.infoWithStyle.restaurants)
-    setRestaurantList(data.data.cards[4].card.card.gridElements.infoWithStyle.restaurants)
-    setFilteredList(data.data.cards[4].card.card.gridElements.infoWithStyle.restaurants)
-  
+    const data = await response.json();
+    setRestaurantList(
+      data.data.cards[4].card.card.gridElements.infoWithStyle.restaurants
+    );
+    setFilteredList(
+      data.data.cards[4].card.card.gridElements.infoWithStyle.restaurants
+    );
   };
-  // console.log(restaurantList)
   useEffect(() => {
-    // console.log("UseEffect Called");
     fetchData();
   }, []);
 
@@ -35,37 +34,51 @@ const Body = () => {
   };
 
   const handleSearch = (e) => {
-    // console.log(e)
-    const searchList = restaurantList.filter((res) => (
-      // console.log(res.info.name)
-      res.info.name.toLowerCase().includes(inputText.toLowerCase()))
-      
-    )
-    setFilteredList(searchList)
-  }
-  if(!isOnline){
-    return (
-      <h1>Looks like you are offline</h1>
-    )
+    const searchList = restaurantList.filter((res) =>
+      res.info.name.toLowerCase().includes(inputText.toLowerCase())
+    );
+    setFilteredList(searchList);
+  };
+  if (!isOnline) {
+    return <h1>Looks like you are offline</h1>;
   }
 
   return (
-    <div className="body">
+    <div className="body px-10">
       {/* <h1> Search Bar </h1> */}
-      <div className="search">
-        <input className="search-bar" value={inputText} onChange={(e) => {
-          setInputText(e.target.value)
-        }}></input>
-        <button onClick={(e) => {handleSearch(e)}}>Search</button>
-        <button onClick={() => updateResList()}>Filter Above 4 rating</button>
+      <div className="search m-4 flex justify-center gap-3">
+        <input
+          className="search-bar border border-width: 1px; border-solid border-black rounded-lg p-2 w-80"
+          type="text"
+          value={inputText}
+          onChange={(e) => {
+            setInputText(e.target.value);
+          }}
+        ></input>
+        <button
+          className="bg-blue-300 p-2 rounded-lg text-zinc-50"
+          onClick={(e) => {
+            handleSearch(e);
+          }}
+        >
+          Search
+        </button>
+        <button
+          className="bg-blue-300 p-2 rounded-lg text-zinc-50"
+          onClick={() => updateResList()}
+        >
+          Filter above 4 rating
+        </button>
       </div>
-      
-     
+
       <div>
         <div className="card">
-          <ul className="res-card">
+          <ul className="res-card flex flex-wrap flex-row justify-start gap-6 p-4 m-4">
             {filteredList.map((item, index) => (
-              <Link key={item.info.id} to={"restaurant/"+item.info.id}> <ResCardJS  resName={item} /></Link>
+              <Link key={item.info.id} to={"restaurant/" + item.info.id}>
+                {" "}
+                <ResCardJS resName={item} />
+              </Link>
             ))}
           </ul>
         </div>

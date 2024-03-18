@@ -7,14 +7,16 @@ import { createBrowserRouter , Outlet } from "react-router-dom";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { RouterProvider } from "react-router-dom";
+import Footer from "./components/Footer";
 
 
 
 const App = () => {
   return (
-    <div className="app">
+    <div className="app bg-zinc-50">
       <Header />
       <Outlet/>
+      <Footer/>
     </div>
   );
 };

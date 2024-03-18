@@ -19,17 +19,17 @@ const Header = () => {
 
 
   return (
-    <div className="header">
+    <div className="header flex justify-between bg-orange-200 h-36">
       <div className="logo-container">
         <Link to="/">
-        <img className="logo" src={logo} />
+        <img className="logo w-50 h-32 my-2 ml-10" src={logo} />
         </Link>
       </div>
-      <div className="menu">
-        <ul>
-          <li>{isOnline ? "Online" : "Offline"}</li>
-          <li> <Link to="/">Home</Link></li>
-          <li> <Link to="/about">  About Us</Link></li>
+      <div className="menu m-10 flex items-center">
+        <ul className="flex gap-4">
+          <li >{isOnline ? "Online" : "Offline"}</li>
+          <li > <Link to="/">Home</Link></li>
+          <li > <Link to="/about">  About Us</Link></li>
           <li> <Link to="/contact">  Contact Us</Link></li>
           <button
             onClick={() => {
