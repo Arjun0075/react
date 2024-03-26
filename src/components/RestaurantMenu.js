@@ -1,25 +1,29 @@
 import { useParams } from "react-router-dom";
 import useRestaurantMenu from "../../utils/useRestaurantMenu";
 import AccordionMenu from "./AccordionMenu";
+import { useState } from "react";
 
 const RestaurantMenu = () => {
   const { resId } = useParams();
   const response = useRestaurantMenu(resId);
+  const [showIndex, setShowIndex] = useState(null);
 
-  const resName = response?.data?.cards[0].card.card.info.name;
-  const restaurantMenu =
-    response?.data?.cards[2].groupedCard.cardGroupMap.REGULAR.cards[2].card.card
-      .itemCards;
-  const cuisines = response?.data?.cards[0]?.card?.card?.info.cuisines;
+  // console.log(response)
+
+  const resName = response?.data?.cards[0]?.card?.card?.text;
+  // const restaurantMenu =
+  //   response?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card?.card
+  //     .itemCards;
+  const cuisines = response?.data?.cards[2]?.card?.card?.info?.cuisines;
   const itemCategory =
-    response?.data?.cards[2].groupedCard.cardGroupMap.REGULAR.cards.filter(
+    response?.data?.cards[4].groupedCard?.cardGroupMap?.REGULAR?.cards.filter(
       (c) =>
         c?.card?.card?.["@type"] ===
         "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
     );
-  // console.log(itemCategory);
+  //  console.log(restaurantMenu);
 
-  if (restaurantMenu === null) {
+  if (itemCategory === null) {
     return <h1>Loading</h1>;
   } else {
     return (
@@ -33,7 +37,20 @@ const RestaurantMenu = () => {
         <div>
           {itemCategory &&
             itemCategory.map((category, index) => {
-              return <AccordionMenu key={index} data={category?.card?.card} />;
+              return (
+                <AccordionMenu
+                  key={category?.card?.card.title}
+                  data={category?.card?.card}
+                  accordion={index === showIndex ? true : false}
+                  setShowIndex={() => {
+                    if (index === showIndex) {
+                      setShowIndex(null);
+                    } else {
+                      setShowIndex(index);
+                    }
+                  }}
+                />
+              );
             })}
         </div>
       </div>
