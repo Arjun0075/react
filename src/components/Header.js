@@ -1,11 +1,17 @@
-import { useState } from "react";
+import { useState , useContext } from "react";
 import logo from "../../header-logo.png";
 import { Link } from "react-router-dom";
 import useOnline from "../../utils/useOnline";
+import UserContext from "../../utils/UserContext";
+import {useSelector} from "react-redux"
 
 const Header = () => {
   const [btnText, setbtnText] = useState("Login");
   const isOnline = useOnline()
+  // const user = useContext(UserContext) 
+  const cartItem = useSelector((store) => store.cart.items)
+  console.log(cartItem)
+
   // console.log(isOnline)
 
   const handelCLick = async () => {
@@ -29,8 +35,10 @@ const Header = () => {
         <ul className="flex gap-4">
           <li >{isOnline ? "Online" : "Offline"}</li>
           <li > <Link to="/">Home</Link></li>
-          <li > <Link to="/about">  About Us</Link></li>
-          <li> <Link to="/contact">  Contact Us</Link></li>
+          <li > <Link to="/about"> About Us</Link></li>
+          <li> <Link to="/contact"> Contact Us</Link></li>
+          <li className="font-bold"><Link to="/cart">Cart({cartItem.length})</Link></li>
+          
           <button
             onClick={() => {
               handelCLick();

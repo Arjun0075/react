@@ -21,7 +21,6 @@ const RestaurantMenu = () => {
         c?.card?.card?.["@type"] ===
         "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
     );
-  //  console.log(restaurantMenu);
 
   if (itemCategory === null) {
     return <h1>Loading</h1>;

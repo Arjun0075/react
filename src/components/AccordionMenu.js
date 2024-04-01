@@ -1,4 +1,3 @@
-import { useState } from "react";
 import AccordionDropDown from "./AccordionDropDown";
 
 const AccordionMenu = ({data , accordion , setShowIndex}) => {
@@ -23,7 +22,7 @@ const AccordionMenu = ({data , accordion , setShowIndex}) => {
          {accordion ? <span className="pr-4">⬆️</span> : <span className="pr-4">⬇️</span>} 
       </div>
       <div>
-        {accordion &&  <AccordionDropDown data = {data}/>}
+        {accordion &&  <AccordionDropDown itemCards = {data.itemCards}/>}
       </div>
     </div>
   );

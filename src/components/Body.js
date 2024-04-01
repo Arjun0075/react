@@ -1,14 +1,15 @@
 import ResCardJS from "./Rescard";
-import data from "../../utils/data";
-import { useEffect, useState, useParams } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import useOnline from "../../utils/useOnline";
+import UserContext from "../../utils/UserContext";
 
 const Body = () => {
   const [restaurantList, setRestaurantList] = useState([]);
   const [inputText, setInputText] = useState("");
   const [filteredList, setFilteredList] = useState([]);
   const isOnline = useOnline();
+  // const {loggedInUser,setUserInfo} = useContext(UserContext)
   // console.log(restaurantList);
   // console.log(filteredList);
 
@@ -69,6 +70,7 @@ const Body = () => {
         >
           Filter above 4 rating
         </button>
+        {/* <input className="border border-black p-2" onChange={(e)=> setUserInfo(e.target.value)} value={loggedInUser}/> */}
       </div>
 
       <div>
